@@ -1,6 +1,6 @@
 {
 	"name": "gacek85/xml-stream",
-	"description": "Event driver neader for large XML files",
+	"description": "Event driven reader for large XML files",
 	"authors": [
 		{
 			"name": "Maciej Garycki",
