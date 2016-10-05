@@ -1,0 +1,6 @@
+lue="test" attrWithoutValue="">
+    <anotherItem value="subvalue" />
+    <![CDATA[
+        This is a cdata block
+    ]]>
+</item><item name="test" va

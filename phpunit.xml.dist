@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="test/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Event Driven XML Reader Test Suite">
+            <directory>test/XML/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/XML/</directory>
+            <exclude>
+                <directory>./docs</directory>
+                <directory>./examples</directory>
+                <directory>./test</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

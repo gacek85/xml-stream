@@ -1,0 +1,9 @@
+/log
+/vendor
+/nbproject
+/test/Resources/report
+
+composer.phar
+/phpunit.xml
+/bin
+/behat.yml
