@@ -27,7 +27,8 @@
 	},
     "autoload-dev": {
         "psr-4": {
-            "Gacek85\\XML\\Test\\": "test/XML/Test/"
+            "Gacek85\\XML\\Test\\": "test/XML/Test/",
+            "Gacek85\\XML\\Mock\\": "test/XML/Mock/"
         }
     },
 	"minimum-stability": "dev"

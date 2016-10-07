@@ -22,13 +22,16 @@ class Provider implements ProviderInterface
     
     
     /**
-     * Sets feature provider
+     * Adds new feature provider
      * 
      * @param       FeatureProviderInterface        $featureProvider
+     * 
      * @return      EventProvider
-     * @throws      InvalidArgumentException
+     * 
+     * @throws      InvalidArgumentException        If provider for given feature
+     *                                              is already set
      */
-    public function setFeatureProvider(FeatureProviderInterface $featureProvider)
+    public function addFeatureProvider(FeatureProviderInterface $featureProvider)
     {
         if (array_key_exists($featureProvider->getFeature(), $this->featureProviders)) {
             throw new InvalidArgumentException(sprintf(

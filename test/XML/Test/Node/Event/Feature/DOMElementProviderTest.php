@@ -1,9 +1,8 @@
 <?php
 namespace Gacek85\XML\Test\Node\Event\Feature;
 
-use Gacek85\XML\Node\Event\Event;
 use Gacek85\XML\Node\Event\Feature\DOMElementProvider;
-use PHPUnit_Framework_TestCase;
+use Gacek85\XML\Test\Node\Event\AbstractEventAwareTest;
 
 /**
  *  Test case for DOMElementProvider
@@ -11,7 +10,7 @@ use PHPUnit_Framework_TestCase;
  *  @author Maciej Garycki <maciekgarycki@gmail.com>
  *  @copyrights Maciej Garycki 2016
  */
-class DOMElementProviderTest extends PHPUnit_Framework_TestCase 
+class DOMElementProviderTest extends AbstractEventAwareTest
 {
     
     public function testProvide()
@@ -39,20 +38,4 @@ class DOMElementProviderTest extends PHPUnit_Framework_TestCase
         $event = $this->getEvent();
         $event->getFeature('non_exisiting_feature');
     }
-    
-    
-    protected function getEvent()
-    {
-        return new Event(2, 'item', $this->getRawNode());
-    }
-    
-    
-    protected function getRawNode ()
-    {
-        return file_get_contents(sprintf(
-            '%s/../../../../../Resources/xml/full_node.txt',
-            __DIR__
-        ));
-    }
-    
 }
