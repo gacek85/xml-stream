@@ -189,12 +189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "715f6e2f6055196d4f8c914a90d3ea4035f4b2b2"
+                "reference": "57d1666335f24fbf9c60c6f1bb75c8b2dbc17052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/715f6e2f6055196d4f8c914a90d3ea4035f4b2b2",
-                "reference": "715f6e2f6055196d4f8c914a90d3ea4035f4b2b2",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/57d1666335f24fbf9c60c6f1bb75c8b2dbc17052",
+                "reference": "57d1666335f24fbf9c60c6f1bb75c8b2dbc17052",
                 "shasum": ""
             },
             "require": {
