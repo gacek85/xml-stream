@@ -189,12 +189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "57d1666335f24fbf9c60c6f1bb75c8b2dbc17052"
+                "reference": "6e17ce075da9ace831033419a986cc81232ee08f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/57d1666335f24fbf9c60c6f1bb75c8b2dbc17052",
-                "reference": "57d1666335f24fbf9c60c6f1bb75c8b2dbc17052",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/6e17ce075da9ace831033419a986cc81232ee08f",
+                "reference": "6e17ce075da9ace831033419a986cc81232ee08f",
                 "shasum": ""
             },
             "require": {
@@ -231,7 +231,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2016-10-07 05:05:18"
+            "time": "2016-10-07 10:14:39"
         },
         {
             "name": "phpdocumentor/reflection-common",
