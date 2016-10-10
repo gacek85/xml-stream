@@ -28,12 +28,25 @@ EOR;
     
     protected function clear()
     {
-        $this->acc = $this->lastChunk;
+        $this->acc = $this->getRemaining();
         $this->rawNodes = [];
         
         return $this;
     }
     
+    
+    protected function getRemaining()
+    {
+        $lastNode = end($this->rawNodes);
+        if (!$lastNode) {
+            return '';
+        }
+        $exploded = explode($lastNode, $this->acc);
+        
+        return end($exploded);
+    }
+
+
     
     /**
      * Resets the detector

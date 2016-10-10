@@ -1,0 +1,8 @@
+<item name="test" value="test" attrWithoutValue="">
+    <anotherItem value="subvalue" />
+    <![CDATA[
+        This is a cdata block
+    ]]>
+</item><item name="test1" value="test2" attrWithoutValue="">
+    <anotherItem value="subvalue1" />
+    <![CDATA[

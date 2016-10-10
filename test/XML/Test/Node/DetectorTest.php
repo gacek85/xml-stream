@@ -62,7 +62,14 @@ class DetectorTest extends PHPUnit_Framework_TestCase
                 ],
                 'node' => 'item',
                 'count' => 0
-            ]
+            ],
+            [
+                'files' => [
+                    $this->getContentPath('node_rest.txt')
+                ],
+                'node' => 'item',
+                'count' => 1
+            ],
         ];
     }
     
@@ -75,6 +82,36 @@ class DetectorTest extends PHPUnit_Framework_TestCase
             }
         }, $this->getTestContent());
     }
+    
+    
+    public function testGetRemaining()
+    {
+        $this
+            ->nodeDetector
+            ->reset()
+            ->setNodeName('item')
+        ;
+        
+        $this->assertTrue($this->nodeDetector->hasNodes(file_get_contents($this->getContentPath('node_rest.txt'))));
+        $this->assertCount(1, $this->nodeDetector->getNodesText());
+        
+        $reflected = new \ReflectionClass($this->nodeDetector);
+        $attr = $reflected->getProperty('acc');
+        $attr->setAccessible(true);
+        $remaining = $attr->getValue($this->nodeDetector);
+        $this->assertEquals($this->getRemainingRest(), $remaining);
+    }
+    
+    
+    protected function getRemainingRest()
+    {
+        return <<<EOR
+<item name="test1" value="test2" attrWithoutValue="">
+    <anotherItem value="subvalue1" />
+    <![CDATA[
+EOR;
+    }
+    
     
     public function doTestSingle(array $item)
     {

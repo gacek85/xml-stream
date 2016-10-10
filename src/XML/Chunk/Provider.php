@@ -81,6 +81,17 @@ class Provider implements ProviderInterface
     
     
     /**
+     * Checks if is end of file
+     * 
+     * @return      bool
+     */
+    public function isEof()
+    {
+        return !$this->hasChunk();
+    }
+    
+    
+    /**
      * Returns a chunk string of data. If no data available,
      * throws 
      * 

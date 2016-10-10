@@ -56,6 +56,8 @@ class ProviderTest extends PHPUnit_Framework_TestCase
             $buffer .= $reader->getChunk(); 
         }
         
+        $this->assertFalse($reader->hasChunk());
+        $this->assertTrue($reader->isEof());
         $this->assertEquals($contents, $buffer);
         
         return $reader;
