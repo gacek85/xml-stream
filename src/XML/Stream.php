@@ -4,7 +4,7 @@ namespace Gacek85\XML;
 use Gacek85\XML\Chunk\ProviderInterface as ChunkProviderInterface;
 use Gacek85\XML\Node\DetectorInterface;
 use Gacek85\XML\Node\Event\ProviderInterface as EventProviderInterface;
-use Gacek85\XML\NodeEventInterface;
+use Gacek85\XML\Node\Event\EventInterface as NodeEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

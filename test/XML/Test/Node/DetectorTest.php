@@ -13,7 +13,7 @@ use RuntimeException;
  */
 class DetectorTest extends PHPUnit_Framework_TestCase 
 {
-    const CONTENT_PATH_PATTERN = '%s/../../../Resources/xml/%s';
+    const CONTENT_PATH_PATTERN = '%s/../../../Resources/xml/unit/%s';
     
     
     /**

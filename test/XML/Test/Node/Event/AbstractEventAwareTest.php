@@ -29,7 +29,7 @@ abstract class AbstractEventAwareTest extends PHPUnit_Framework_TestCase
     protected function getRawNode ()
     {
         return file_get_contents(sprintf(
-            '%s/../../../../Resources/xml/full_node.txt',
+            '%s/../../../../Resources/xml/unit/full_node.txt',
             __DIR__
         ));
     }
