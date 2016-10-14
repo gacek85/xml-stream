@@ -39,12 +39,11 @@ class XmlGenerator
     public function generate($path)
     {
         $root = $this->getUniqueWord([$this->nodeName]);
-        $this->addFileHeader($path, $root);
-        
-        $this->addFileNodes($path);
-        
-        // Closing the root tag
-        $this->addToFile($path, sprintf('</%s>', $root));
+        $this
+            ->addFileHeader($path, $root)
+            ->addFileNodes($path)
+            // Closing the root tag
+            ->addToFile($path, sprintf('</%s>', $root));
         
         return $path;
     }
@@ -55,6 +54,8 @@ class XmlGenerator
         array_map(function() use ($path){
             $this->addToFile($path, $this->generateNode($this->nodeName));
         }, array_fill(0, $this->nodesCount, null));
+        
+        return $this;
     }
 
 
@@ -65,12 +66,15 @@ class XmlGenerator
             '<?xml version="1.0" encoding="UTF-8" ?><%s>',
             $rootNode
         ));
+        
+        return $this;
     }
     
     
     protected function addToFile($path, $contents)
     {
         file_put_contents($path, $contents, FILE_APPEND);
+        return $this;
     }
     
     
@@ -83,15 +87,16 @@ class XmlGenerator
         $nodeName, 
         $minDepth, 
         $maxDepth, 
-        array $notNodes = []
+        array $restricted = []
     ){
         $attrs = $this->getAttributes(mt_rand(0, 3));
-        $notNodesMerged = array_merge($notNodes, [$nodeName]);
-        return mt_rand($minDepth, $maxDepth) ? sprintf(
+        $allRestricted = array_merge($restricted, [$nodeName]);
+        $hasDepth = mt_rand($minDepth, $maxDepth);
+        return $hasDepth ? sprintf(
             "<%s%s>%s</%s>\n\r",
             $nodeName,
             $attrs,
-            $this->doGenerate($this->getUniqueWord($notNodesMerged), 0, --$maxDepth, $notNodesMerged),
+            $this->doGenerate($this->getUniqueWord($allRestricted), 0, --$maxDepth, $allRestricted),
             $nodeName
         ) : sprintf("<%s%s />", $nodeName, $attrs);
     }
@@ -115,7 +120,7 @@ class XmlGenerator
     }
     
     
-    public function getUniqueWords($num)
+    protected function getUniqueWords($num)
     {
         $words = [];
         while(count($words) < $num) {
@@ -125,11 +130,11 @@ class XmlGenerator
         return $words;
     }
     
-    public function getUniqueWord(array $notWords = [])
+    protected function getUniqueWord(array $restricted = [])
     {
         do {
             $word = $this->faker->word;
-        } while (!mb_strlen($word) || in_array($word, $notWords, true));
+        } while (!mb_strlen($word) || in_array($word, $restricted, true));
         
         return $word;
     }

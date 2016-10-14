@@ -8,7 +8,7 @@ use Gacek85\XML\Node\Event\EventInterface as NodeEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- *  Event streamtream provider for XML file nodes. 
+ *  Event stream provider for XML tree nodes. 
  *  Reads the file chunk by chunk and dispatches events
  *  containing matching nodes information.
  *
