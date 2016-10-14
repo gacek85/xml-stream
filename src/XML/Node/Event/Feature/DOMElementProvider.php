@@ -45,13 +45,13 @@ class DOMElementProvider implements ProviderInterface
     {
         $dom = new DOMDocument();
         $previousValue = libxml_use_internal_errors(true);
-        $success = $dom->loadXML($this->getFullXML($nodeEvent->getRawNode()));
+        $dom->loadXML($this->getFullXML($nodeEvent->getRawNode()));
         libxml_clear_errors();
         libxml_use_internal_errors($previousValue);
         
         return $dom->getElementsByTagName($nodeEvent->getNodeName())->item(0);
     }
-    
+        
     protected function getFullXML($node)
     {
         return trim(sprintf(<<<EOD

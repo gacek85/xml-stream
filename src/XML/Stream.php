@@ -101,14 +101,13 @@ class Stream
     
     protected function processNodes(array $nodes)
     {
-        $that = $this;
-        array_map(function ($node) use ($that) {
-            $that
+        array_map(function ($node) {
+            $this
                 ->getDispatcher()
                 ->dispatch(
                     NodeEventInterface::NAME, 
                     $this->eventProvider->createEvent(
-                        $that->increaseCounter(), 
+                        $this->increaseCounter(), 
                         $this->nodeName, 
                         $node
                     )

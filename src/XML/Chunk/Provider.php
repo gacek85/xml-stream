@@ -2,6 +2,7 @@
 namespace Gacek85\XML\Chunk;
 
 use Gacek85\XML\Exception\EofException;
+use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
 use SplFileObject;
@@ -41,10 +42,21 @@ class Provider implements ProviderInterface
     )
     {
         $this->path = $resourcePath;
-        $this->chunkLength = $chunkLength;
+        $this->chunkLength = $this->validateChunkLength($chunkLength);
     }
     
     
+    protected function validateChunkLength($chunkLength)
+    {
+        if ($chunkLength <= 1) {
+            throw new InvalidArgumentException(sprintf(
+                'Minimal chunk length is 2!'
+            ));
+        }
+        
+        return $chunkLength;
+    }
+
     /**
      * Resets the provider to the beginning of the file
      * 

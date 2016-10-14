@@ -41,15 +41,24 @@ class ProviderTest extends PHPUnit_Framework_TestCase
     
     public function testGetChunk()
     {
-        $that = $this;
-        array_map(function($length) use ($that) {
-            $that->doTestGetChunk($length);
-        }, [1, 10, 100, 1000, Provider::DEFAULT_CHUNK_LENGTH]);
+        array_map(function($length) {
+            $this->doTestGetChunk($length);
+        }, [2, 10, 100, 1000, Provider::DEFAULT_CHUNK_LENGTH]);
     }
     
-    public function doTestGetChunk($length = Provider::DEFAULT_CHUNK_LENGTH)
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testConstructorException()
     {
-        $reader = new Provider($fp = $this->createFile($length));
+        $this->doTestGetChunk(1);
+    }
+    
+    
+    protected function doTestGetChunk($length = Provider::DEFAULT_CHUNK_LENGTH)
+    {
+        $reader = new Provider($fp = $this->createFile(), $length);
         $contents = file_get_contents($fp);
         $buffer = '';
         while($reader->hasChunk()) {

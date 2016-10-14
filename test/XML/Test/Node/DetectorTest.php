@@ -75,10 +75,9 @@ class DetectorTest extends PHPUnit_Framework_TestCase
     
     public function testNodeDetector ()
     {
-        $that = $this;
-        array_map(function (array $item) use ($that) {
+        array_map(function (array $item){
             if (count($item['files'] === 1)) {
-                $that->doTestSingle($item);
+                $this->doTestSingle($item);
             }
         }, $this->getTestContent());
     }
