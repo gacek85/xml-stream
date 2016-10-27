@@ -1,9 +1,10 @@
 <?php
-namespace Gacek85\XML\Node\Event;
+namespace Gacek85\XML\Node\Event\Providers;
 
 use Gacek85\XML\Node\Event\Feature\ProviderInterface as FeatureProviderInterface;
 use Gacek85\XML\Node\Event\ProviderInterface;
 use InvalidArgumentException;
+use Gacek85\XML\Node\Event\NodeEvent as Event;
 
 /**
  *  Provides events for XML nodes. Default implementation of
@@ -12,13 +13,27 @@ use InvalidArgumentException;
  *  @author Maciej Garycki <maciekgarycki@gmail.com>
  *  @copyrights Maciej Garycki 2016
  */
-class Provider implements ProviderInterface
+class NodeEventProvider extends AbstractEventProvider implements ProviderInterface
 {
+
+    const NAME = "node";
+
     /**
      *
      * @var FeatureProviderInterface[]
      */
     protected $featureProviders = [];
+    
+
+    /**
+     * Returns event name
+     * 
+     * @return      string
+     */
+    public function getName()
+    {
+        return self::NAME;
+    }
     
     
     /**
@@ -49,17 +64,17 @@ class Provider implements ProviderInterface
     /**
      * Creates the event for given node
      * 
-     * @param       int                 $counter
+     * @param       array               $params
      * 
-     * @param       string              $nodeName
-     * 
-     * @param       string              $node
-     * 
-     * @return      Event
+     * @return      NodeEvent
      */
-    public function createEvent($counter, $nodeName, $node)
+    public function createEvent(array $params)
     {
-        return $this->populate(new Event($counter, $nodeName, $node));
+        return $this->populate(new Event(
+            $this->validate($params, 'counter'), 
+            $this->validate($params, 'nodeName'), 
+            $this->validate($params, 'node')
+        ));
     }
     
     

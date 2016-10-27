@@ -1,6 +1,8 @@
 <?php
 namespace Gacek85\XML\Node\Event;
 
+use Symfony\Component\EventDispatcher\Event;
+
 /**
  *  Provides event for given node
  *
@@ -9,16 +11,22 @@ namespace Gacek85\XML\Node\Event;
  */
 interface ProviderInterface 
 {
+    
     /**
-     * Creates the event for given node
+     * Returns event name
      * 
-     * @param       int                 $counter
-     * 
-     * @param       string              $node
-     * 
-     * @param       string              $nodeName
-     * 
-     * @return      EventInterface
+     * @return      string
      */
-    public function createEvent($counter, $node, $nodeName);
+    public function getName();
+    
+    
+    /**
+     * Creates the event 
+     * 
+     * 
+     * @param       array               $params
+     * 
+     * @return      Event
+     */
+    public function createEvent(array $params);
 }

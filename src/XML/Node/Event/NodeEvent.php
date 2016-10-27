@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\Event as BaseEvent;
  *  @author Maciej Garycki <maciekgarycki@gmail.com>
  *  @copyrights Maciej Garycki 2016
  */
-class Event extends BaseEvent implements ExtendedEventInterface
+class NodeEvent extends BaseEvent
 {
     
     protected $counter = null;
@@ -22,6 +22,10 @@ class Event extends BaseEvent implements ExtendedEventInterface
     protected $nodeName = null;
     
     
+    /**
+     *
+     * @var array|mixed[]
+     */
     protected $features = [];
     
     

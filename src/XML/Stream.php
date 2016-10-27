@@ -3,8 +3,7 @@ namespace Gacek85\XML;
 
 use Gacek85\XML\Chunk\ProviderInterface as ChunkProviderInterface;
 use Gacek85\XML\Node\DetectorInterface;
-use Gacek85\XML\Node\Event\ProviderInterface as EventProviderInterface;
-use Gacek85\XML\Node\Event\EventInterface as NodeEventInterface;
+use Gacek85\XML\Node\Event\ProviderAwareInterface as ProviderAggregator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -43,7 +42,7 @@ class Stream
     
     /**
      *
-     * @var EventProviderInterface
+     * @var ProviderAggregator
      */
     protected $eventProvider = null;
     
@@ -55,7 +54,7 @@ class Stream
         EventDispatcherInterface $dispatcher, 
         ChunkProviderInterface $chunkProvider,
         DetectorInterface $nodeDetector,
-        EventProviderInterface $eventProvider
+        ProviderAggregator $eventProvider
     ){
         $this->dispatcher = $dispatcher;
         $this->chunkProvider = $chunkProvider;
@@ -79,6 +78,12 @@ class Stream
             ->reset()
             ->setNodeName($nodeName);
         
+        $event = $this->eventProvider->useProvider(ProviderAggregator::NAME_START)->createEvent([
+            'nodeName' => $nodeName
+        ]);
+        
+        $this->dispatcher->dispatch($this->eventProvider->getName(), $event);
+        
         $this->doRead();       
     }
     
@@ -88,6 +93,14 @@ class Stream
         while ($this->chunkProvider->hasChunk()) {
             $this->processChunk($this->chunkProvider->getChunk());
         }
+        
+        $event = $this
+                ->eventProvider
+                ->useProvider(ProviderAggregator::NAME_END)
+                ->createEvent([
+                    'totalNodes' => $this->counter
+                ]);
+        $this->dispatcher->dispatch($this->eventProvider->getName(), $event);
     }
     
     
@@ -101,16 +114,17 @@ class Stream
     
     protected function processNodes(array $nodes)
     {
+        $this->eventProvider->useProvider(ProviderAggregator::NAME_NODE);
         array_map(function ($node) {
             $this
                 ->getDispatcher()
                 ->dispatch(
-                    NodeEventInterface::NAME, 
-                    $this->eventProvider->createEvent(
-                        $this->increaseCounter(), 
-                        $this->nodeName, 
-                        $node
-                    )
+                    $this->eventProvider->getName(), 
+                    $this->eventProvider->createEvent([
+                        'counter' => $this->increaseCounter(), 
+                        'nodeName' => $this->nodeName, 
+                        'node' => $node
+                    ])
                 );
         }, $nodes);
     }

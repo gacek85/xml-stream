@@ -1,7 +1,7 @@
 <?php
 namespace Gacek85\XML\Node\Event\Feature;
 
-use Gacek85\XML\Node\Event\Event;
+use Gacek85\XML\Node\Event\NodeEvent as Event;
 
 /**
  *  ProviderInterface

@@ -2,17 +2,17 @@
 namespace Gacek85\XML\Test\Node\Event;
 
 use Gacek85\XML\Mock\Node\Event\Feature\ProviderMock;
-use Gacek85\XML\Node\Event\Event as EventClass;
-use Gacek85\XML\Node\Event\Provider;
+use Gacek85\XML\Node\Event\NodeEvent;
+use Gacek85\XML\Node\Event\Providers\NodeEventProvider as Provider;
 use Gacek85\XML\Test\Node\Event\AbstractEventAwareTest;
 
 /**
- *  Test case for Provider
+ *  Test case for NodeEventProvider
  *
  *  @author Maciej Garycki <maciekgarycki@gmail.com>
  *  @copyrights Maciej Garycki 2016
  */
-class ProviderTest extends AbstractEventAwareTest 
+class NodeEventProviderTest extends AbstractEventAwareTest 
 {
     /**
      *
@@ -30,9 +30,13 @@ class ProviderTest extends AbstractEventAwareTest
     {
         $instance = $this->provider->addFeatureProvider(new ProviderMock());
         $this->assertSame($this->provider, $instance);
-        $event = $this->provider->createEvent(1, 'item', $this->getRawNode());
+        $event = $this->provider->createEvent([
+            'counter' => 1, 
+            'nodeName' => 'item', 
+            'node' => $this->getRawNode()
+        ]);
         
-        $this->assertInstanceOf(EventClass::class, $event);
+        $this->assertInstanceOf(NodeEvent::class, $event);
         $this->assertEquals(1, $event->getCounter());
         $this->assertEquals($this->getRawNode(), $event->getRawNode());
         $this->assertEquals($event->getFeature(ProviderMock::FEATURE), ProviderMock::TEST_VALUE);
@@ -46,4 +50,16 @@ class ProviderTest extends AbstractEventAwareTest
         }
         $this->assertTrue($throwsError);        
     }    
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateEventException()
+    {
+        $this->provider->createEvent([ 
+            'nodeName' => 'item', 
+            'node' => ''
+        ]);
+    }
 }

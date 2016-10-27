@@ -1,7 +1,7 @@
 <?php
 namespace Gacek85\XML\Test\Node\Event;
 
-use Gacek85\XML\Node\Event\Event as EventClass;
+use Gacek85\XML\Node\Event\NodeEvent;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -18,11 +18,11 @@ abstract class AbstractEventAwareTest extends PHPUnit_Framework_TestCase
     /**
      * Provides event instance
      * 
-     * @return      EventClass
+     * @return      NodeEvent
      */
     protected function getEvent($counter = self::DEFAULT_COUNTER)
     {
-        return new EventClass($counter, 'item', $this->getRawNode());
+        return new NodeEvent($counter, 'item', $this->getRawNode());
     }
     
     

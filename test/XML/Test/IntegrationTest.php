@@ -4,10 +4,12 @@ namespace Gacek85\XML\Test;
 use Faker\Factory;
 use Gacek85\XML\Chunk\Provider as ChunkProvider;
 use Gacek85\XML\Node\Detector;
-use Gacek85\XML\Node\Event\Event;
-use Gacek85\XML\Node\Event\EventInterface;
+use Gacek85\XML\Node\Event\Aggregator as EventProvider;
+use Gacek85\XML\Node\Event\NodeEvent as Event;
 use Gacek85\XML\Node\Event\Feature\DOMElementProvider;
-use Gacek85\XML\Node\Event\Provider as EventProvider;
+use Gacek85\XML\Node\Event\Providers\EndEventProvider;
+use Gacek85\XML\Node\Event\Providers\NodeEventProvider;
+use Gacek85\XML\Node\Event\Providers\StartEventProvider;
 use Gacek85\XML\Stream;
 use Gacek85\XML\Test\Tools\XmlGenerator;
 use PHPUnit_Framework_TestCase;
@@ -50,10 +52,18 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         );
     }
     
-    
     protected function createEventProvider()
     {
         return (new EventProvider())
+                ->addProvider($this->createNodeEventProvider())
+                ->addProvider(new StartEventProvider())
+                ->addProvider(new EndEventProvider());
+    }
+    
+    
+    protected function createNodeEventProvider()
+    {
+        return (new NodeEventProvider())
                     ->addFeatureProvider(new DOMElementProvider());
     }
  
@@ -116,7 +126,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         $this
             ->stream
             ->getDispatcher()
-            ->addListener(EventInterface::NAME, function (Event $ev) use (&$counter) {
+            ->addListener('xml_stream.node', function (Event $ev) use (&$counter) {
                 $this->assertEquals(++$counter, $ev->getCounter(), $ev->getRawNode());
                 $this->assertEquals($this->nodeName, $ev->getNodeName());
                 $this->assertInstanceOf(\DOMElement::class, $ev->getFeature(DOMElementProvider::FEATURE));

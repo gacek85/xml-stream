@@ -3,7 +3,7 @@ namespace Gacek85\XML\Node\Event\Feature;
 
 use DOMDocument;
 use DOMElement;
-use Gacek85\XML\Node\Event\Event;
+use Gacek85\XML\Node\Event\NodeEvent as Event;
 
 /**
  *  Provides DOMElement object for given node
