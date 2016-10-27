@@ -18,7 +18,7 @@ interface ProviderInterface
      * 
      * @param       string              $nodeName
      * 
-     * @return      ProviderInterface   This instance
+     * @return      EventInterface
      */
     public function createEvent($counter, $node, $nodeName);
 }
